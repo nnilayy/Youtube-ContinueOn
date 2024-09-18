@@ -25,7 +25,7 @@
 ### **Step 1: Clone the Repository**
 
 ```bash
-git clone https://github.com/YourUsername/YouTube-Continue-On.git
+git clone https://github.com/nnilayy/YouTube-ContinueOn.git
 ```
 
 ### **Step 2: Load the Extension in Chrome**
@@ -84,7 +84,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you have any questions or need further assistance, feel free to reach out:
 
-- **GitHub Issues**: [Issues Page](https://github.com/YourUsername/YouTube-Continue-On/issues)
+- **GitHub Issues**: [Issues Page](https://github.com/nnilayy/YouTube-ContinueOn/issues)
 - **Email**: youremail@example.com
 
 ---
