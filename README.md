@@ -1,7 +1,3 @@
-Certainly! Here’s a user-friendly and helpful **README** for your GitHub repository for the "YouTube Continue On" Chrome Extension:
-
----
-
 # **YouTube Continue On**
 
 ![YouTube Continue On](icon.png)  
