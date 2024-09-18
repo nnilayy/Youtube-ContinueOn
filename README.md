@@ -90,7 +90,3 @@ If you have any questions or need further assistance, feel free to reach out:
 
 - **GitHub Issues**: [Issues Page](https://github.com/nnilayy/YouTube-ContinueOn/issues)
 - **Email**: nnilayy.work@gmail.com
-
----
-
-Feel free to customize the parts like the GitHub username, screenshot paths, or any additional instructions relevant to your project. Let me know if you’d like any further modifications!
