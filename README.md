@@ -84,7 +84,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 If you have any questions or need further assistance, feel free to reach out:
 
 - **GitHub Issues**: [Issues Page](https://github.com/nnilayy/YouTube-ContinueOn/issues)
-- **Email**: youremail@example.com
+- **Email**: nnilayy.work@gmail.com
 
 ---
 
