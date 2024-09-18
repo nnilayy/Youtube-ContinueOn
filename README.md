@@ -71,11 +71,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## **Screenshots**
 
-![Screenshot 1](screenshots/screenshot1.png)
-*QR code button in YouTube player controls*
+<div style="text-align: center;">
+    <img src="promo-images/image-i.png" alt="Screenshot 1" width="800"/>
+    <p><em>QR code button in YouTube player controls</em></p>
+</div>
 
-![Screenshot 2](screenshots/screenshot2.png)
-*QR code overlay with video thumbnail and title*
+<div style="text-align: center;">
+    <img src="promo-images/image-ii.png" alt="Screenshot 2" width="800"/>
+    <p><em>QR code overlay with video thumbnail and title</em></p>
+</div>
+
 
 ---
 
