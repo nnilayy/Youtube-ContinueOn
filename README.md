@@ -1,11 +1,6 @@
-Certainly! Here’s a user-friendly and helpful **README** for your GitHub repository for the "YouTube Continue On" Chrome Extension:
+# **YouTube ContinueOn**
 
----
-
-# **YouTube Continue On**
-
-![YouTube Continue On](icon.png)  
-*Seamlessly continue watching YouTube videos from where you left off on any device by scanning a QR code.*
+<p align="center"> <img src="icon.png" alt="YouTube Continue On" width="200" height="200"> </p> <p align="center"> <i>Seamlessly continue watching YouTube videos from where you left off on any device by scanning a QR code.</i> </p>
 
 ---
 
@@ -29,7 +24,7 @@ Certainly! Here’s a user-friendly and helpful **README** for your GitHub repos
 ### **Step 1: Clone the Repository**
 
 ```bash
-git clone https://github.com/YourUsername/YouTube-Continue-On.git
+git clone https://github.com/nnilayy/YouTube-ContinueOn.git
 ```
 
 ### **Step 2: Load the Extension in Chrome**
@@ -88,7 +83,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you have any questions or need further assistance, feel free to reach out:
 
-- **GitHub Issues**: [Issues Page](https://github.com/YourUsername/YouTube-Continue-On/issues)
+- **GitHub Issues**: [Issues Page](https://github.com/nnilayy/YouTube-ContinueOn/issues)
 - **Email**: youremail@example.com
 
 ---
