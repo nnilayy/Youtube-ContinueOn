@@ -1,15 +1,15 @@
 // content.js
 
 function injectQRCodeButtonIntoPlayer() {
-    if (document.getElementById('qr-code-player-button')) return;
-  
-    const playerControls = document.querySelector('.ytp-right-controls');
-  
-    if (playerControls) {
-      const button = document.createElement('button');
-      button.id = 'qr-code-player-button';
-      button.className = 'ytp-button';
-      button.title = 'Generate QR Code';
+  if (document.getElementById('qr-code-player-button')) return;
+
+  const playerControls = document.querySelector('.ytp-right-controls');
+
+  if (playerControls) {
+    const button = document.createElement('button');
+    button.id = 'qr-code-player-button';
+    button.className = 'ytp-button';
+    button.title = 'Generate QR Code';
   
       button.innerHTML = `
       <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,146 +31,170 @@ function injectQRCodeButtonIntoPlayer() {
   }
 }
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'showQRCodeOverlay') {
+    generateAndDisplayQRCode();
+  }
+});
+
 function generateAndDisplayQRCode() {
-    let qrCodeContainer = document.getElementById('qr-code-container');
-  
-    if (qrCodeContainer) {
-      if (qrCodeContainer.classList.contains('active')) {
-        // Start fade-out transition
-        qrCodeContainer.classList.remove('active');
-  
-        qrCodeContainer.addEventListener('transitionend', function handler(event) {
-          if (event.propertyName === 'opacity') {
-            qrCodeContainer.removeEventListener('transitionend', handler);
-            qrCodeContainer.remove();
-          }
-        });
-      }
-      return;
+  let qrCodeContainer = document.getElementById('qr-code-container');
+
+  if (qrCodeContainer) {
+    if (qrCodeContainer.classList.contains('active')) {
+      closeQRCodeOverlay();
     }
-  
-    // Get current video URL and timestamp
-    const videoElement = document.querySelector('video');
-    const currentTime = videoElement ? Math.floor(videoElement.currentTime) : 0;
-    const url = new URL(window.location.href);
-    url.searchParams.set('t', currentTime);
-  
-    // Extract video ID from URL
-    const videoId = url.searchParams.get('v');
-  
-    // Construct thumbnail URL
-    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-  
-    // Get video title
-    let videoTitle = getVideoTitle();
-  
-    // Create overlay container
-    qrCodeContainer = document.createElement('div');
-    qrCodeContainer.id = 'qr-code-container';
-  
-    // Create content wrapper
-    const contentWrapper = document.createElement('div');
-    contentWrapper.id = 'qr-code-content';
-  
-    // Create header inside the content wrapper
-    const headerBar = document.createElement('div');
-    headerBar.id = 'qr-code-header';
-    headerBar.textContent = 'Continue Watching This Video On Other Device By Just Scanning The QR Code';
-  
-    // Create main content area (left and right sections)
-    const mainContent = document.createElement('div');
-    mainContent.id = 'qr-code-main-content';
-  
-    // Create left section (thumbnail and title)
-    const leftSection = document.createElement('div');
-    leftSection.id = 'qr-code-left';
-  
-    const thumbnailImg = document.createElement('img');
-    thumbnailImg.id = 'qr-code-thumbnail';
-    thumbnailImg.src = thumbnailUrl;
-    thumbnailImg.alt = 'Video Thumbnail';
-  
-    const titleDiv = document.createElement('div');
-    titleDiv.id = 'qr-code-title';
-    titleDiv.textContent = videoTitle;
-  
-    leftSection.appendChild(thumbnailImg);
-    leftSection.appendChild(titleDiv);
-  
-    // Create right section (QR code)
-    const rightSection = document.createElement('div');
-    rightSection.id = 'qr-code-right';
-  
-    const qrCodeDiv = document.createElement('div');
-    qrCodeDiv.id = 'qr-code';
-  
-    rightSection.appendChild(qrCodeDiv);
-  
-    // Append left and right sections to main content area
-    mainContent.appendChild(leftSection);
-    mainContent.appendChild(rightSection);
-  
-    // Append header and main content to content wrapper
-    contentWrapper.appendChild(headerBar);
-    contentWrapper.appendChild(mainContent);
-  
-    // Append content wrapper to overlay container
-    qrCodeContainer.appendChild(contentWrapper);
-  
-    // Append overlay container to body
-    document.body.appendChild(qrCodeContainer);
-  
-    // Generate QR code
-    new QRCode(qrCodeDiv, {
-      text: url.toString(),
-      width: 150,
-      height: 150,
-    });
-  
-    // Force reflow to ensure the transition occurs
-    void qrCodeContainer.offsetWidth;
-  
-    // Start fade-in transition
-    qrCodeContainer.classList.add('active');
-  
-    // Close QR code when clicking outside of the content
-    qrCodeContainer.addEventListener('click', function (e) {
-      if (e.target === qrCodeContainer) {
-        // Start fade-out transition
-        qrCodeContainer.classList.remove('active');
-  
-        qrCodeContainer.addEventListener('transitionend', function handler(event) {
-          if (event.propertyName === 'opacity') {
-            qrCodeContainer.removeEventListener('transitionend', handler);
-            qrCodeContainer.remove();
-          }
-        });
-      }
-    });
+    return;
   }
-  
-  function getVideoTitle() {
-    // Try multiple selectors to get the video title
-    let videoTitleElement =
-      document.querySelector('h1.title yt-formatted-string') ||
-      document.querySelector('h1.title') ||
-      document.querySelector('h1 > yt-formatted-string') ||
-      document.querySelector('h1');
-  
-    let videoTitle = videoTitleElement ? videoTitleElement.textContent.trim() : null;
-  
-    if (!videoTitle || videoTitle === '') {
-      videoTitle = document.title.replace(/ - YouTube.*$/, '').trim();
-    }
-  
-    return videoTitle;
-  }
-  
-  // Observe changes to the player controls and inject the QR code button when necessary
-  const playerObserver = new MutationObserver(() => {
-    injectQRCodeButtonIntoPlayer();
+
+  // Get current video URL and timestamp
+  const videoElement = document.querySelector('video');
+  const currentTime = videoElement ? Math.floor(videoElement.currentTime) : 0;
+  const url = new URL(window.location.href);
+  url.searchParams.set('t', currentTime);
+
+  // Extract video ID from URL
+  const videoId = url.searchParams.get('v');
+
+  // Construct thumbnail URL
+  const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+
+  // Get video title
+  let videoTitle = getVideoTitle();
+
+  // Create overlay container
+  qrCodeContainer = document.createElement('div');
+  qrCodeContainer.id = 'qr-code-container';
+
+  // Create content wrapper
+  const contentWrapper = document.createElement('div');
+  contentWrapper.id = 'qr-code-content';
+
+  // Create header inside the content wrapper
+  const headerBar = document.createElement('div');
+  headerBar.id = 'qr-code-header';
+
+  // Create header text container
+  const headerText = document.createElement('div');
+  headerText.id = 'qr-code-header-text';
+  headerText.textContent = 'Continue watching this video from where you are leaving off!';
+
+  // Create close button
+  const closeButton = document.createElement('button');
+  closeButton.id = 'qr-code-close-button';
+  closeButton.title = 'Close';
+  closeButton.innerHTML = '&times;'; // HTML entity for 'X' symbol
+
+  // Add header text and close button to the header
+  headerBar.appendChild(headerText);
+  headerBar.appendChild(closeButton);
+
+  // Create main content area (left and right sections)
+  const mainContent = document.createElement('div');
+  mainContent.id = 'qr-code-main-content';
+
+  // Create left section (thumbnail and title)
+  const leftSection = document.createElement('div');
+  leftSection.id = 'qr-code-left';
+
+  const thumbnailImg = document.createElement('img');
+  thumbnailImg.id = 'qr-code-thumbnail';
+  thumbnailImg.src = thumbnailUrl;
+  thumbnailImg.alt = 'Video Thumbnail';
+
+  const titleDiv = document.createElement('div');
+  titleDiv.id = 'qr-code-title';
+  titleDiv.textContent = videoTitle;
+
+  leftSection.appendChild(thumbnailImg);
+  leftSection.appendChild(titleDiv);
+
+  // Create right section (QR code)
+  const rightSection = document.createElement('div');
+  rightSection.id = 'qr-code-right';
+
+  const qrCodeDiv = document.createElement('div');
+  qrCodeDiv.id = 'qr-code';
+
+  rightSection.appendChild(qrCodeDiv);
+
+  // Append left and right sections to main content area
+  mainContent.appendChild(leftSection);
+  mainContent.appendChild(rightSection);
+
+  // Append header and main content to content wrapper
+  contentWrapper.appendChild(headerBar);
+  contentWrapper.appendChild(mainContent);
+
+  // Append content wrapper to overlay container
+  qrCodeContainer.appendChild(contentWrapper);
+
+  // Append overlay container to body
+  document.body.appendChild(qrCodeContainer);
+
+  // Generate QR code
+  new QRCode(qrCodeDiv, {
+    text: url.toString(),
+    width: 150,
+    height: 150,
   });
-  
-  playerObserver.observe(document.body, { childList: true, subtree: true });
-  
+
+  // Force reflow to ensure the transition occurs
+  void qrCodeContainer.offsetWidth;
+
+  // Start fade-in transition
+  qrCodeContainer.classList.add('active');
+
+  // Close QR code when clicking outside of the content
+  qrCodeContainer.addEventListener('click', function (e) {
+    if (e.target === qrCodeContainer) {
+      closeQRCodeOverlay();
+    }
+  });
+
+  // Close QR code when clicking the close button
+  closeButton.addEventListener('click', function (e) {
+    e.stopPropagation(); // Prevent the event from bubbling up
+    closeQRCodeOverlay();
+  });
+}
+
+function closeQRCodeOverlay() {
+  const qrCodeContainer = document.getElementById('qr-code-container');
+  if (qrCodeContainer) {
+    qrCodeContainer.classList.remove('active');
+
+    qrCodeContainer.addEventListener('transitionend', function handler(event) {
+      if (event.propertyName === 'opacity') {
+        qrCodeContainer.removeEventListener('transitionend', handler);
+        qrCodeContainer.remove();
+      }
+    });
+  }
+}
+
+function getVideoTitle() {
+  // Try multiple selectors to get the video title
+  let videoTitleElement =
+    document.querySelector('h1.title yt-formatted-string') ||
+    document.querySelector('h1.title') ||
+    document.querySelector('h1 > yt-formatted-string') ||
+    document.querySelector('h1');
+
+  let videoTitle = videoTitleElement ? videoTitleElement.textContent.trim() : null;
+
+  if (!videoTitle || videoTitle === '') {
+    videoTitle = document.title.replace(/ - YouTube.*$/, '').trim();
+  }
+
+  return videoTitle;
+}
+
+// Observe changes to the player controls and inject the QR code button when necessary
+const playerObserver = new MutationObserver(() => {
   injectQRCodeButtonIntoPlayer();
+});
+
+playerObserver.observe(document.body, { childList: true, subtree: true });
+
+injectQRCodeButtonIntoPlayer();
