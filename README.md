@@ -78,7 +78,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div style="text-align: center;">
     <img src="promo-images/github-promo-images/image-ii.png" alt="Screenshot 2" width="800"/>
-    <p><em>QR code overlay with video thumbnail and title</em></p>
+    <p><em>QR code overlay with video thumbnail and title for the current timestamp</em></p>
 </div>
 
 
