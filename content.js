@@ -49,9 +49,20 @@ function generateAndDisplayQRCode() {
 
   // Get current video URL and timestamp
   const videoElement = document.querySelector('video');
-  const currentTime = videoElement ? Math.floor(videoElement.currentTime) : 0;
   const url = new URL(window.location.href);
-  url.searchParams.set('t', currentTime);
+  if (videoElement) {
+    if (videoElement.ended || videoElement.currentTime >= videoElement.duration) {
+      // If the video has ended, remove the timestamp parameter
+      url.searchParams.delete('t');
+    } else {
+      // If the video is still playing, set the current timestamp
+      const currentTime = Math.floor(videoElement.currentTime);
+      url.searchParams.set('t', currentTime);
+    }
+  } else {
+    // If no video element is found, remove the timestamp parameter
+    url.searchParams.delete('t');
+  }
 
   // Extract video ID from URL
   const videoId = url.searchParams.get('v');
