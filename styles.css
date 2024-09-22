@@ -145,7 +145,7 @@
 
 /* Style for the QR code itself */
 #qr-code {
-  background-color: rgba(255, 255, 255, 0.8); /* Slightly opaque background */
+  background-color: rgb(255, 255, 255); /* Slightly opaque background */
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 30px rgb(255, 255, 255);
