@@ -1,6 +1,6 @@
 # **YouTube ContinueOn**
 
-<p align="center"> <img src="icon.png" alt="YouTube Continue On" width="200" height="200"> </p> <p align="center"> <i>Seamlessly continue watching YouTube videos from where you left off on any device by scanning a QR code.</i> </p>
+<p align="center"> <img src="icons/icon.png" alt="YouTube Continue On" width="200" height="200"> </p> <p align="center"> <i>Seamlessly continue watching YouTube videos from where you left off on any device by scanning a QR code.</i> </p>
 
 ---
 

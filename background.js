@@ -7,8 +7,8 @@ function updateIconBasedOnCurrentTab() {
       // No active tabs, set icon to grey
       chrome.action.setIcon({
         path: {
-          "48": "icon_grey-48.png",
-          "128": "icon_grey.png",
+          "48": "icons/icon_grey-48.png",
+          "128": "icons/icon_grey.png",
         },
       });
       return;
@@ -18,8 +18,8 @@ function updateIconBasedOnCurrentTab() {
       // Set the colorful icon when on a YouTube video page
       chrome.action.setIcon({
         path: {
-          "48": "icon-48.png",
-          "128": "icon.png",
+          "48": "icons/icon-48.png",
+          "128": "icons/icon.png",
         },
         tabId: tab.id,
       });
@@ -27,8 +27,8 @@ function updateIconBasedOnCurrentTab() {
       // Set the grey icon
       chrome.action.setIcon({
         path: {
-          "48": "icon_grey-48.png",
-          "128": "icon_grey.png",
+          "48": "icons/icon_grey-48.png",
+          "128": "icons/icon_grey.png",
         },
         tabId: tab.id,
       });
@@ -76,7 +76,7 @@ chrome.action.onClicked.addListener((tab) => {
     // Optional: Show a notification if not on a YouTube video page
     chrome.notifications.create({
       type: "basic",
-      iconUrl: "icon_grey.png",
+      iconUrl: "icons/icon_grey.png",
       title: "YouTube ContinueOn",
       message:
         "Please navigate to a YouTube video page to use this extension.",
