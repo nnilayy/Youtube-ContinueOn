@@ -7,7 +7,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff; /* Set the icon color to white */
+  color: #ffffff;
+  margin-right: 8px; /* Add some space to the right of the button */
 }
 
 #qr-code-player-button svg {
@@ -146,9 +147,19 @@
 /* Style for the QR code itself */
 #qr-code {
   background-color: rgb(255, 255, 255); /* Slightly opaque background */
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px;
+  border-radius: 15px;
   box-shadow: 0 0 30px rgb(255, 255, 255);
+}
+
+.ytp-right-controls {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Adjust the position of other controls */
+.ytp-right-controls > :not(#qr-code-player-button) {
+  margin-left: auto;
 }
 
 /* Responsive adjustments */
