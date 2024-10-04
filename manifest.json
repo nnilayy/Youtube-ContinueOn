@@ -21,7 +21,7 @@
     {
       "matches": [
         "*://*.youtube.com/*",
-        "*://youtube.com/*"
+        "*://youtube.com/*" 
       ],
       "js": ["qrcode.min.js", "content.js"],
       "css": ["styles.css"]
