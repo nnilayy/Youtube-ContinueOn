@@ -1,5 +1,15 @@
 // background.js
 
+function isYouTubeWatchPage(urlString) {
+  try {
+    const url = new URL(urlString);
+    const isYouTube = /^(www\.|m\.|music\.)?youtube\.[a-z.]+$/.test(url.hostname);
+    return isYouTube && url.pathname.startsWith("/watch");
+  } catch {
+    return false;
+  }
+}
+
 // Function to update the action icon based on the current tab's URL
 function updateIconBasedOnCurrentTab() {
   chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
@@ -14,7 +24,7 @@ function updateIconBasedOnCurrentTab() {
       return;
     }
     const tab = tabs[0];
-    if (tab.url && tab.url.includes("youtube.com/watch")) {
+    if (tab.url && isYouTubeWatchPage(tab.url)) {
       // Set the colorful icon when on a YouTube video page
       chrome.action.setIcon({
         path: {
@@ -69,8 +79,7 @@ chrome.runtime.onStartup.addListener(function () {
 // Handle the action button click
 chrome.action.onClicked.addListener((tab) => {
   // Check if the current tab is a YouTube video page
-  if (tab.url && tab.url.includes("youtube.com/watch")) {
-    // Send a message to the content script to trigger the QR code overlay
+  if (tab.url && isYouTubeWatchPage(tab.url)) {
     chrome.tabs.sendMessage(tab.id, { action: "showQRCodeOverlay" });
   } else {
     // Optional: Show a notification if not on a YouTube video page

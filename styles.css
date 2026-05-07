@@ -3,16 +3,10 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: #ffffff;
-  margin-right: 8px; /* Add some space to the right of the button */
 }
 
 #qr-code-player-button svg {
-  fill: currentColor;
   opacity: 0.8;
 }
 
@@ -152,15 +146,6 @@
   box-shadow: 0 0 30px rgb(255, 255, 255);
 }
 
-.ytp-right-controls {
-  display: flex !important;
-  align-items: center !important;
-}
-
-/* Adjust the position of other controls */
-.ytp-right-controls > :not(#qr-code-player-button) {
-  margin-left: auto;
-}
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
